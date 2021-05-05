@@ -18,13 +18,14 @@ The pipeline architecture includes the following steps:
   - generate new features (feature engineering, also using the clean_data python function, one-hot encoding and process date variables),
   - split data in train and test sets and 
   - fit model using scikit-learn python library
-2. **Sklearn estimator**: use the logistic regression model from the scikit-learn python library.
-3. **HyperDrive**: 
+2. **Sklearn estimator**: 
+  - we use the logistic regression model from the scikit-learn python library.
+4. **HyperDrive**: 
   - we perform random search to optimize the parameters C and max_iter, 
   - set accuracy as primary metric to compare fitted models, 
   - set bandit policy and 
   - set the sklearn estimator (logistic regression).
-4. **Save Best Model*: the best logistic regression we got has params C=0.85 and max_iter=100, and the performance was accuracy=0.85.
+5. **Save Best Model**: the best logistic regression we got has params C=0.85 and max_iter=100, and the performance was accuracy=0.85.
 
 The benefits of random search are the following: 
 - We can improve the performance os our model by searching the best combination of hyper-parameters,
