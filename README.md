@@ -47,6 +47,8 @@ The benefit of using a early stopping policy is:
 5. **Configuration of AutoML**
 6. **Save Best Model**: the best model using AutoML is an ensemble model (bagging) of the models trained: LightGBM, XGBoostClassifier, XGBoostClassifier, XGBoostClassifier, LightGBM, XGBoostClassifier and RandomForest.
 
+![image](https://user-images.githubusercontent.com/32734434/117157619-050c8f00-adbf-11eb-9651-3b448ec332f4.png)
+
 ## Pipeline comparison
 The pipeline of both solutions is very similar (for more details just compare the above list of steps) the only difference is the training configs:
 1. the first solution: we fix the model type (logistic regression) and leverage HyperDrive to fine-tune hyper-parameters,
@@ -56,3 +58,6 @@ The pipeline of both solutions is very similar (for more details just compare th
 - Deep feature engineering combining variables in the dataset,
 - Use External data of each customer,
 - Deep model interpretability to completely understand the model behaviour.
+
+## Proof of cluster clean up
+![image](https://user-images.githubusercontent.com/32734434/117159195-608b4c80-adc0-11eb-9959-7dadd3bf13a9.png)
