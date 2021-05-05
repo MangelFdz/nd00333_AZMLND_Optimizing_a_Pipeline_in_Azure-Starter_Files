@@ -11,37 +11,47 @@ This dataset contains data about customers of a bank and we seek to predict a bi
 The best performing model was fitted by AutoML: VotingEnsemble with 0.9168 accuracy.
 
 ## Scikit-learn Pipeline
-The pipeline architetcure includes the following steps:
+The pipeline architecture includes the following steps:
 1. **Training script**: 
-  - in the train.py script we import the raw data, 
-  - clean data using teh provided clean_data python function, 
-  - generate new features (fature engineering, also using the clean_data python function),
+  - in the train.py script we import the raw data using TabularDatasetFactory functionality from the azureml library, 
+  - clean data using teh provided clean_data python function (missing values), 
+  - generate new features (feature engineering, also using the clean_data python function, one-hot encoding and process date variables),
   - split data in train and test sets and 
   - fit model using scikit-learn python library
-3. **Sklearn estimator**: use the logistic regression model from the scikit-learn python library.
-4. **HyperDrive**: 
+2. **Sklearn estimator**: use the logistic regression model from the scikit-learn python library.
+3. **HyperDrive**: 
   - we perform random search to optimize the parameters C and max_iter, 
   - set accuracy as primary metric to compare fitted models, 
   - set bandit policy and 
   - set the sklearn estimator (logistic regression).
-6. **Best Model*: the best logistic regression we got has params C=0.85 and max_iter=100, and the performance was accuracy=0.85.
+4. **Save Best Model*: the best logistic regression we got has params C=0.85 and max_iter=100, and the performance was accuracy=0.85.
 
 The benefits of random search are the following: 
 - We can improve the performance os our model by searching the best combination of hyper-parameters,
-- support continous and dicrete distributions
+- support continous and dicrete distributions and
+- deeper sarch of each param space than grid search
+
+The benefit of using a early stopping policy is:
+- (Bandit) It terminates runs where the primary metric is not within the specified slack factor compared to the best performing run, so we save time.
 
 ## AutoML
-1. Import data
-2. Cleaning of data
-3. Splitting of data
-4. Configuration of AutoML
+1. **Import data**:
+  - In the udacity-project.ipynb notebook we import tha raw data using TabularDatasetFactory functionality from the azureml library.
+2. **Cleaning of data**:
+  - In the udacity-project.ipynb notebook we clean data using teh provided clean_data python function (missing values).
+3. **Feature engineering**:
+  - In the udacity-project.ipynb notebook we perform feature engineering, also using the clean_data python function (one-hot encoding and process date variables).
+4. **Splitting of data**:
+  - split data in train and test sets.
+5. **Configuration of AutoML**
+6. **Save Best Model**: the best model using AutoML is an ensemble model (bagging) of the models trained: LightGBM, XGBoostClassifier, XGBoostClassifier, XGBoostClassifier, LightGBM, XGBoostClassifier and RandomForest.
 
 ## Pipeline comparison
-The best model using AutoML is an ensemble model (bagging) of the models trained: LightGBM, XGBoostClassifier, XGBoostClassifier, XGBoostClassifier, LightGBM, XGBoostClassifier, RandomForest. The pipeline of both solutions is very similar, the only difference is the training configs:
-1. the first solution: logistic regression + hyperdrive
-2. the second solution: AutoML
+The pipeline of both solutions is very similar (for more details just compare the above list of steps) the only difference is the training configs:
+1. the first solution: we fix the model type (logistic regression) and leverage HyperDrive to fine-tune hyper-parameters,
+2. the second solution: AutoML try different types of models (logistic regressions, XGBoost, Random Forest, Neural Nets, Ensembles...) using their optimal hyper-parameters.
 
 ## Future work
-- Deep feature engineering
-- Use External data
-- Deep model interpretability
+- Deep feature engineering combining variables in the dataset,
+- Use External data of each customer,
+- Deep model interpretability to completely understand the model behaviour.
